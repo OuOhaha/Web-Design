@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>簡單AJAX(jQuery)範例</title>
+</head>
+
+<body>
+    <select id="selection" onchange="change()">
+        <option value="" selected>Select an option</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <br>
+    <div id="container">Is this the car?</div>
+</body>
+
+<script>
+    var change = function() {
+        var selection = $('#selection').val();
+        $.ajax({
+            url: "response.php",
+            data: "&selection=" + selection,
+            type: "POST",
+            dataType: 'text',
+
+            success: function(message) {
+                document.getElementById("container").innerHTML = message;
+            },
+
+            error: function(XHR, status, badOutput) {
+                document.getElementById("container").innerHTML = badOutput;
+            }
+        });
+    }
+</script>
+
+</html>
